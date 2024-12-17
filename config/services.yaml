@@ -1,0 +1,48 @@
+parameters:
+    redis.config.connection:
+        scheme: 'tcp'
+        host: '%env(DB_HOST)%'
+        port: '%env(DB_PORT)%'
+        password: '%env(DB_PASSWORD)%'
+        username: '%env(DB_USER)%'
+    redis.config.options:
+        prefix: 'inventory:'
+        database: 0
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Application\:
+        resource: '../src/Application'
+
+    Domain\:
+        resource: '../src/Domain'
+        exclude:
+            - '../src/Domain/Model'
+
+    Infrastructure\:
+        resource: '../src/Infrastructure'
+        exclude:
+            - '../src/Infrastructure/Framework/Symfony/Kernel.php'
+            - '../src/Infrastructure/Persistence/Redis/Entity'
+
+    Presentation\:
+        resource: '../src/Presentation'
+
+    Predis\Client: ['%redis.config.connection%', '%redis.config.options%']
+    Predis\ClientInterface: '@Predis\Client'
+
+    guzzle.gold-api.client:
+        class: GuzzleHttp\Client
+        arguments:
+            $config:
+                base_uri: 'https://www.goldapi.io/api/'
+                timeout: 10
+                headers:
+                    x-access-token: 'goldapi-26dsm4r29ls3-io'
+                    Content-Type: 'application/json'
+
+    Infrastructure\GoldAPI\Guzzle\GoldAPIRepository:
+        arguments: ["@guzzle.gold-api.client"]

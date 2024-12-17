@@ -1,0 +1,27 @@
+services:
+  coin-service:
+    build:
+      context: ../
+      dockerfile: docker/image/php/Dockerfile
+    environment:
+      PHP_IDE_CONFIG: "serverName=coin-service"
+    volumes:
+      - "../:/app:rw"
+    networks:
+      - coin-service
+
+  coin-db:
+    image: redis:7.4.1-alpine
+    volumes:
+      - db:/cache
+    networks:
+      - coin-service
+    ports:
+      - "6379:6379"
+    command: [ "redis-server", "--requirepass", "password" ]
+
+networks:
+  coin-service:
+
+volumes:
+  db:

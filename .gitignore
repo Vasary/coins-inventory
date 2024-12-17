@@ -1,0 +1,14 @@
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+.phpunit.result.cache
+/.phpcs-cache
+/phpcs.xml
+/.idea
+/behat.yml
+src/Infrastructure/Protobuf/Messages
+src/Infrastructure/Protobuf/Meta

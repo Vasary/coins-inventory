@@ -1,0 +1,19 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Infrastructure\Persistence\Redis\Repository\CoinRepository:
+        public: true
+
+    Infrastructure\Test\Fixture\CoinFixture:
+        public: true
+
+    Application\UseCase\Coin\Find\FindAllCoinsUseCase:
+        public: true
+
+    Application\UseCase\Coin\Place\PlaceCoinUseCase:
+        public: true
+
+    Domain\Coin\Factory\CoinFactory:
+        public: true

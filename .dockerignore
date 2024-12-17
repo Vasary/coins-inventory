@@ -1,0 +1,12 @@
+.gitignore
+.git
+.github
+README.md
+docs
+var
+vendor
+tests
+phpcs.xml
+phpunit.xml
+Makefile
+.env.test
