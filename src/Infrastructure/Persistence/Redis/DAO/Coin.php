@@ -8,7 +8,6 @@ use Generator;
 use Infrastructure\Persistence\Redis\Entity\Coin as CoinEntity;
 use Infrastructure\Persistence\Redis\Mapper\CoinMapper;
 use Predis\Client;
-use RuntimeException;
 use Symfony\Component\Serializer\SerializerInterface;
 
 readonly final class Coin
@@ -57,9 +56,7 @@ readonly final class Coin
     {
         $key = str_replace('{id}', $coin->id, self::NAMESPACE);
 
-        if (1 !== $this->client->del($key)) {
-            throw new RuntimeException('Impossible to remove: ' . $key);
-        }
+        $this->client->del($key);
     }
 
     private function getKey(CoinEntity $coin): string

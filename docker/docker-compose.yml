@@ -9,6 +9,9 @@ services:
       - "../:/app:rw"
     networks:
       - coin-service
+    ports:
+      - "80:80"
+      - "443:443"
 
   coin-db:
     image: redis:7.4.1-alpine

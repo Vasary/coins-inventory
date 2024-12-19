@@ -11,14 +11,12 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Psr7\Response;
 use Infrastructure\Money\Service\MoneyInitializerService;
-use Psr\Log\LoggerInterface;
 
 final readonly class GoldAPIRepository implements MarketRepositoryInterface
 {
     public function __construct(
         private ClientInterface $client,
         private MoneyInitializerService $moneyInitializer,
-        private LoggerInterface $logger,
     ) {
     }
 
@@ -58,15 +56,8 @@ final readonly class GoldAPIRepository implements MarketRepositoryInterface
         return $this->moneyInitializer->create($price, $currency);
     }
 
-    private function handleRequestException(RequestException $exception, string $currency): void
+    private function handleRequestException(RequestException $exception, string $currency): Money
     {
-        $error = $exception->getMessage();
-        if ($exception->hasResponse()) {
-            $error .= ' - ' . $exception->getResponse()->getBody()->getContents();
-        }
-
-        $this->logger->error($error);
-
-        $this->moneyInitializer->create(0, $currency);
+        return $this->moneyInitializer->create(0, $currency);
     }
 }

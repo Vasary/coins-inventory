@@ -9,7 +9,9 @@
         "ext-iconv": "*",
         "ext-pdo": "*",
         "guzzlehttp/guzzle": "7.9.2",
-        "guzzlehttp/promises": "*",
+        "guzzlehttp/promises": "2.0.4",
+        "kevinrob/guzzle-cache-middleware": "^6.0",
+        "league/flysystem": "*",
         "malkusch/lock": "2.2.1",
         "moneyphp/money": "3.3.3",
         "nesbot/carbon": "3.8.2",
@@ -19,11 +21,13 @@
         "symfony/dotenv": "7.1.5",
         "symfony/flex": "2.4.6",
         "symfony/framework-bundle": "7.1.5",
+        "symfony/intl": "7.1.*",
         "symfony/monolog-bundle": "3.10",
         "symfony/property-access": "7.1.4",
         "symfony/runtime": "7.1.7",
         "symfony/serializer": "7.1.5",
-        "symfony/string": "7.1.*",
+        "symfony/string": "7.1.8",
+        "symfony/validator": "7.1.9",
         "symfony/yaml": "7.1.5"
     },
     "config": {
@@ -79,7 +83,7 @@
         }
     },
     "require-dev": {
-        "captainhook/captainhook": "^5.24",
+        "captainhook/captainhook": "5.24.1",
         "dg/bypass-finals": "1.8.0",
         "phpunit/phpunit": "11.5.0",
         "slevomat/coding-standard": "8.15",

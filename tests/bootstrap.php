@@ -5,7 +5,7 @@ declare(strict_types=1);
 use DG\BypassFinals;
 use Symfony\Component\Dotenv\Dotenv;
 
-require dirname(__DIR__) . '/vendor/autoload.php';
+require dirname(__DIR__) . '/vendor/autoload_runtime.php';
 
 new Dotenv()->bootEnv(dirname(__DIR__) . '/.env');
 

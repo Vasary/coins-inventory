@@ -28,47 +28,9 @@ final readonly class Money implements DomainMoneyInterface
         return $this->money->getCurrency()->getCode();
     }
 
-    public function add(DomainMoneyInterface $other): DomainMoneyInterface
-    {
-        $newMoney = $this->money->add($other->money);
-        return new self($newMoney->getAmount(), $newMoney->getCurrency()->getCode(), $this->formatter);
-    }
-
-    public function subtract(DomainMoneyInterface $other): DomainMoneyInterface
-    {
-        $newMoney = $this->money->subtract($other->money);
-        return new self($newMoney->getAmount(), $newMoney->getCurrency()->getCode(), $this->formatter);
-    }
-
-    public function greaterThan(DomainMoneyInterface $other): bool
-    {
-        return $this->money->greaterThan($other->money);
-    }
-
-    public function lessThan(DomainMoneyInterface $other): bool
-    {
-        return $this->money->lessThan($other->money);
-    }
-
-    public function equals(DomainMoneyInterface $other): bool
-    {
-        return $this->money->equals($other->money);
-    }
-
-    public function sameCurrency(DomainMoneyInterface $other): bool
-    {
-        return $this->money->getCurrency()->equals($other->money->getCurrency());
-    }
-
     public function multiply(float $multiplier): DomainMoneyInterface
     {
         $newMoney = $this->money->multiply($multiplier);
         return new self($newMoney->getAmount(), $newMoney->getCurrency()->getCode(), $this->formatter);
-    }
-
-    public function convertTo(string $targetCurrency, float $conversionRate): DomainMoneyInterface
-    {
-        $convertedAmount = $this->money->getAmount() * $conversionRate;
-        return new self($convertedAmount, $targetCurrency, $this->formatter);
     }
 }

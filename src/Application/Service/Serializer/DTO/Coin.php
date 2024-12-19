@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Application\UseCase\Coin\Find\DTO;
+namespace Application\Service\Serializer\DTO;
 
 final class Coin
 {
@@ -18,6 +18,10 @@ final class Coin
         public int $nominal,
         public string $country,
         public int $year,
-        public string $marketValue,
-    ) {}
+        public string $marketMetalPriceValue,
+        public int $karats,
+        public float $pureMetalWeight,
+        public string $purchaseDate,
+    ) {
+    }
 }

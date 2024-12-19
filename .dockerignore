@@ -8,5 +8,5 @@ tests
 phpcs.xml
 Makefile
 .env.test
-docker
+#docker
 captainhook.json

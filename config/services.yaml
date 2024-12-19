@@ -40,9 +40,34 @@ services:
             $config:
                 base_uri: 'https://www.goldapi.io/api/'
                 timeout: 10
+                handler: '@guzzle.handler'
                 headers:
                     x-access-token: 'goldapi-26dsm4r29ls3-io'
                     Content-Type: 'application/json'
 
     Infrastructure\GoldAPI\Guzzle\GoldAPIRepository:
         arguments: ["@guzzle.gold-api.client"]
+
+    guzzle.handler:
+        class: GuzzleHttp\HandlerStack
+        factory: ['GuzzleHttp\HandlerStack', 'create']
+        calls:
+            - method: push
+              arguments: ['@guzzle.cache.middleware']
+
+    guzzle.cache.middleware:
+        class: Kevinrob\GuzzleCache\CacheMiddleware
+        arguments: ['@guzzle.cache.strategy']
+
+    guzzle.cache.strategy:
+        class: Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy
+        arguments: ['@guzzle.cache.storage']
+
+    guzzle.cache.storage:
+        class: Kevinrob\GuzzleCache\Storage\FlysystemStorage
+        arguments: ['@guzzle.cache.adapter']
+
+    guzzle.cache.adapter:
+        class: League\Flysystem\Local\LocalFilesystemAdapter
+        arguments:
+            $location: '/app/var/cache/%kernel.environment%/'

@@ -7,7 +7,6 @@ namespace Application\UseCase\Coin\Place\Request;
 use ArrayIterator;
 use IteratorAggregate;
 use LogicException;
-use Throwable;
 use Traversable;
 
 final readonly class PlaceCoinRequest implements IteratorAggregate
@@ -32,13 +31,9 @@ final readonly class PlaceCoinRequest implements IteratorAggregate
      */
     public function getSignature(): string
     {
-        try {
-            return sha1(
-                implode('+', array_map(fn (mixed $attribute) => (string) $attribute, [...$this->getIterator()]))
-            );
-        } catch (Throwable $exception) {
-            throw new LogicException($exception->getMessage());
-        }
+        return sha1(
+            implode('+', array_map(fn (mixed $attribute) => (string) $attribute, [...$this->getIterator()]))
+        );
     }
 
     public function getIterator(): Traversable
