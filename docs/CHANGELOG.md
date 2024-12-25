@@ -10,8 +10,8 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
-* Wrong CPU limit has been changed to 500m (30fd2b)
-* Wrong RAM limit has been changed to 256m (30fd2b)
+* Wrong CPU limit has been changed to 500m
+* Wrong RAM limit has been changed to 256m
 
 ---
 
@@ -19,7 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ### Bug Fixes
 
-* Invalid repository URL in the helm chart manifest (21d8a8)
+* Invalid repository URL in the helm chart manifest
 
 
 ---
