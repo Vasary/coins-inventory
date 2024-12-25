@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.5 (2024-12-25)
+
+### Bug Fixes
+
+* Disable auto ssh auto redirect (572ada)
+
+
+---
+
 ## 1.0.4 (2024-12-25)
 
 ### Bug Fixes
