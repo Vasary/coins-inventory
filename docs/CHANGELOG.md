@@ -4,6 +4,17 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.4 (2024-12-25)
+
+### Bug Fixes
+
+* Enable HPS (e5eb7c)
+* Enable Ingress (07b89b)
+* Mount config as a file (48da3b)
+
+
+---
+
 ## 1.0.3 (2024-12-25)
 
 ### Documentation
