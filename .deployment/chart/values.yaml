@@ -62,14 +62,15 @@ autoscaling:
   targetMemoryUtilizationPercentage: 80
 
 volumes:
- - name: foo
+ - name: prod-config
    secret:
      secretName: coins-inventory-config
      optional: false
 
 volumeMounts:
- - name: foo
+ - name: prod-config
    mountPath: "/app/.env.prod"
+   subPath: ".env.prod"
    readOnly: true
 
 nodeSelector: {}
