@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.6 (2024-12-25)
+
+### Bug Fixes
+
+* Set default environment to prod (321f0c)
+
+
+---
+
 ## 1.0.5 (2024-12-25)
 
 ### Bug Fixes
