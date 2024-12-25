@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.7 (2024-12-25)
+
+### Bug Fixes
+
+* Enable CORS (33094f)
+
+
+---
+
 ## 1.0.6 (2024-12-25)
 
 ### Bug Fixes
