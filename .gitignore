@@ -12,3 +12,4 @@
 /behat.yml
 src/Infrastructure/Protobuf/Messages
 src/Infrastructure/Protobuf/Meta
+tests/.phpunit.cache

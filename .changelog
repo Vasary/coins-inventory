@@ -1,0 +1,12 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+  'path' => 'docs/CHANGELOG.md',
+  'ignoreTypes' => ['build', 'ci', 'revert'],
+  'ignorePatterns' => ['/^chore\(release\):/i'],
+  'skipVerify' => true,
+  'tagPrefix' => '',
+  'disableLinks' => true,
+];

@@ -1,0 +1,14 @@
+api_maintenance:
+  path: /api/maintenance/health
+  controller: Presentation\Maintenance\HTTP\Health\HealthCheckController
+  methods: GET
+
+api_application:
+  path: /api/inventory
+  controller: Presentation\API\HTTP\Coin\PlaceCoinController
+  methods: PUT
+
+api_application_get:
+  path: /api/inventory
+  controller: Presentation\API\HTTP\Coin\FindCoinsController
+  methods: GET

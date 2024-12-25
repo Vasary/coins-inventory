@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Infrastructure\Persistence\Redis\Repository;
 
 use Domain\Coin\Model\Coin;
-use Infrastructure\Test\Fixture\CoinFixture;
 use Infrastructure\Test\TestCase;
 
 final class CoinRepositoryTest extends TestCase
@@ -42,14 +41,8 @@ final class CoinRepositoryTest extends TestCase
 
     protected function setUp(): void
     {
-        /** @var CoinRepository $repository */
-        $repository = $this->getContainer()->get(CoinRepository::class);
+        parent::setUp();
 
-        /** @var CoinFixture $fixtures */
-        $fixtures = $this->getContainer()->get(CoinFixture::class);
-
-        foreach ($fixtures->items() as $fixture) {
-            $repository->add($fixture);
-        }
+        $this->loadCoinsFixture();
     }
 }

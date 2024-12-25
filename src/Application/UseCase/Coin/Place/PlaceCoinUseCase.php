@@ -5,9 +5,10 @@ declare(strict_types=1);
 namespace Application\UseCase\Coin\Place;
 
 use Application\Service\LockService\LockServiceInterface;
+use Application\Service\Serializer\CoinSerializer;
+use Application\Service\Serializer\DTO\Coin;
 use Application\UseCase\Coin\Place\Request\PlaceCoinRequest;
 use Domain\Coin\Factory\CoinFactory;
-use Domain\Coin\Model\Coin;
 use Domain\Coin\Repository\RepositoryInterface;
 
 final readonly class PlaceCoinUseCase
@@ -16,6 +17,7 @@ final readonly class PlaceCoinUseCase
         private CoinFactory $factory,
         private RepositoryInterface $repository,
         private LockServiceInterface $lockService,
+        private CoinSerializer $serializer,
     ) {
     }
 
@@ -27,7 +29,7 @@ final readonly class PlaceCoinUseCase
 
                 $this->repository->add($coin);
 
-                return $coin;
+                return $this->serializer->serialize($coin);
             },
             $request->getSignature()
         );

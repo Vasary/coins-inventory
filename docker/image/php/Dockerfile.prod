@@ -1,0 +1,17 @@
+FROM dunglas/frankenphp:1.3-php8.4-alpine
+
+ENV COMPOSER_ALLOW_SUPERUSER=1
+ENV FRANKENPHP_LISTEN=:80
+
+RUN apk add --no-cache icu-dev autoconf g++ make linux-headers && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl  && \
+    apk del autoconf g++ make && \
+    rm -rf /var/cache/apk/*
+
+WORKDIR /app
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
+COPY . /app
+
+RUN composer install --no-ansi --no-dev --no-interaction --no-progress --optimize-autoloader

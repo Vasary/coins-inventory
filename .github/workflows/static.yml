@@ -1,0 +1,66 @@
+name: Deploy helm chart repository page
+
+on:
+  push:
+    tags:
+      - '**'
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Helm 3
+        uses: azure/setup-helm@v3
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set tag version
+        id: vars
+        run: |
+          echo "TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+          echo "COMMIT_SHORT_SHA=$(git rev-parse --short "$GITHUB_SHA")" >> "$GITHUB_ENV"
+
+      - name: Confirm git commit SHA output
+        run: | 
+          echo "Using Git commit SHA: ${{ env.COMMIT_SHORT_SHA }}"
+
+      - name: Confirm tag version
+        run: |
+          echo "Using Git tag: ${{ env.TAG }}"
+
+      - name: Replace tag in values.yaml
+        run: |
+          sed -i 's/tag: .*/tag: "${{ env.TAG }}"/' .deployment/chart/values.yaml
+          sed -i 's/{container_version}/${{ env.COMMIT_SHORT_SHA }}/' .deployment/chart/values.yaml
+          cat .deployment/chart/values.yaml
+
+      - name: Packing chart
+        run: helm package -d .deployment/repository --app-version=${{ env.TAG }} --version=${{ env.TAG }} .deployment/chart
+
+      - name: Indexing
+        run: helm repo index .deployment/repository --url https://vasary.github.io/coins-inventory
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.deployment/repository'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

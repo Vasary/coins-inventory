@@ -3,10 +3,10 @@
         "enabled": true,
         "actions": [
             {
-                "action": "\\CaptainHook\\App\\Hook\\Message\\Action\\Beams",
+                "action": "\\CaptainHook\\App\\Hook\\Message\\Action\\Regex",
                 "options": {
-                    "subjectLength": 50,
-                    "bodyLineLength": 72
+                    "regex": "/^(feat|fix|docs|style|refactor|perf|test|chore)(\\(\\S+\\))?: .+/",
+                    "error": "The message does not conform to the Conventional Commits requirements"
                 }
             }
         ]

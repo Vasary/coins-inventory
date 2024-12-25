@@ -4,22 +4,39 @@ declare(strict_types=1);
 
 namespace Infrastructure\Test;
 
-use Predis\Client;
+use Infrastructure\Persistence\Redis\Repository\CoinRepository;
+use Infrastructure\Test\Fixture\CoinFixture;
+use Predis\ClientInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 abstract class TestCase extends KernelTestCase
 {
     protected function setUp(): void
     {
-        $this->getContainer()->get(Client::class)->flushAll();
+        parent::setUp();
+
+        $this->getContainer()->get(ClientInterface::class)->flushAll();
     }
 
     protected function tearDown(): void
     {
         parent::tearDown();
 
-        $this->getContainer()->get(Client::class)->flushAll();
+        $this->getContainer()->get(ClientInterface::class)->flushAll();
 
         restore_exception_handler();
+    }
+
+    protected function loadCoinsFixture(): void
+    {
+        /** @var CoinRepository $repository */
+        $repository = $this->getContainer()->get(CoinRepository::class);
+
+        /** @var CoinFixture $fixtures */
+        $fixtures = $this->getContainer()->get(CoinFixture::class);
+
+        foreach ($fixtures->items() as $fixture) {
+            $repository->add($fixture);
+        }
     }
 }

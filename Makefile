@@ -3,10 +3,6 @@
 BASEDIR  := $(shell pwd)
 DOCKER_COMPOSE_FILE := $(BASEDIR)/docker/docker-compose.yml
 
-TARGET_DIR="src/Infrastructure/Protobuf"
-OLD_NAMESPACE="Infrastructure\Protobuf\Generated\Events"
-NEW_NAMESPACE="App\Infrastructure\Protobuf\Generated\Events"
-
 help:
 	@echo "---------------------------------------------"
 	@echo "List of available targets:"
@@ -16,7 +12,7 @@ help:
 	@echo "  restart                 - Restarts application containers."
 	@echo "  shell                   - Opens application container shell."
 	@echo "  test                    - Runs application tests."
-	@echo "  proto                   - Generates messages from proto-files."
+	@echo "  release                 - Create a release tag and generates changelog"
 	@echo "  help                    - Shows this dialog."
 	@exit 0
 
@@ -41,8 +37,7 @@ test:
 code-style:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) exec -it coin-service vendor/bin/phpcs
 
-restart: stop start
+release:
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec -it coin-service composer code:release
 
-proto:
-	@rm -rf $(BASEDIR)/src/Infrastructure/Protobuf/*
-	@protoc --proto_path=config/proto --php_out=src config/proto/*.proto
+restart: stop start

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Application\UseCase\Coin\Place;
 
+use Application\Service\Serializer\DTO\Coin;
 use Application\UseCase\Coin\Place\Request\PlaceCoinRequest;
-use Domain\Coin\Model\Coin;
 use Infrastructure\Test\TestCase;
 
 final class PlaceCoinTest extends TestCase
@@ -31,18 +31,18 @@ final class PlaceCoinTest extends TestCase
 
         $coin = $useCase($request);
 
-        $this->assertInstanceOf(Coin::class, $coin, 'The returned object should be an instance of Coin.');
+        $this->assertInstanceOf(Coin::class, $coin);
 
         $this->assertEquals('American Gold Eagle', (string) $coin->name);
         $this->assertEquals('The American Gold Eagle is a popular investment coin.', (string) $coin->description);
-        $this->assertEquals('2000.00', $coin->purchasePrice->getAmount());
-        $this->assertEquals('USD', $coin->purchasePrice->getCurrency());
-        $this->assertEquals('gold', $coin->metal->value);
+        $this->assertEquals('2000.00', $coin->purchasePrice);
+        $this->assertEquals('USD', $coin->purchaseCurrency);
+        $this->assertEquals('gold', $coin->metal);
         $this->assertEquals(31.1035, $coin->weight);
         $this->assertEquals(0.9167, $coin->purity);
         $this->assertEquals(50, $coin->nominal);
-        $this->assertEquals('usa', $coin->country->value);
+        $this->assertEquals('usa', $coin->country);
         $this->assertEquals(2023, $coin->year);
-        $this->assertEquals('2023-12-01T00:15:00+02:00', (string) $coin->purchaseDate);
+        $this->assertEquals('2023-12-01T00:15:00+02:00', $coin->purchaseDate);
     }
 }

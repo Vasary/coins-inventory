@@ -6,6 +6,7 @@ namespace Infrastructure\Char\ValueObject;
 
 use Domain\Common\ValueObject\Char as DomainChar;
 use Symfony\Component\String\UnicodeString;
+
 use function Symfony\Component\String\u;
 
 final class Char implements DomainChar

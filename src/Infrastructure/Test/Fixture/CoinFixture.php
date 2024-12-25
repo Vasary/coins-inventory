@@ -24,8 +24,8 @@ final readonly class CoinFixture
 
     public function items(): Generator
     {
-        yield $this->mapleLeaf();
         yield $this->eagle();
+        yield $this->mapleLeaf();
         yield $this->britannia();
     }
 
