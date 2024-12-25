@@ -30,6 +30,7 @@ ingress:
   annotations:
      kubernetes.io/ingress.class: nginx
      kubernetes.io/tls-acme: "true"
+     nginx.ingress.kubernetes.io/enable-cors: "true"
   hosts:
     - host: coins-inventory.cfv3.org
       paths:
