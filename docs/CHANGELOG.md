@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.9 (2024-12-26)
+
+### Bug Fixes
+
+* Purchase amount rounding (e506a6)
+
+
+---
+
 ## 1.0.8 (2024-12-26)
 
 ### Bug Fixes
