@@ -30,7 +30,7 @@ final class FindAllCoinsTest extends TestCase
         $this->assertEquals('0193ce8c-5e87-7f73-81de-b17ef561d33c', $coin->id);
         $this->assertEquals('Britannia 1/2 oz Gold', $coin->name);
         $this->assertEquals('Gold investment coin', $coin->description);
-        $this->assertEquals(0.15, $coin->purchasePrice);
+        $this->assertEquals(1550.00, $coin->purchasePrice);
         $this->assertEquals('EUR', $coin->purchaseCurrency);
         $this->assertEquals('gold', $coin->metal);
         $this->assertEquals(15.55, $coin->weight);

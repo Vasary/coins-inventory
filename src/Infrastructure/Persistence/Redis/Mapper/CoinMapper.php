@@ -70,7 +70,7 @@ final readonly class CoinMapper
             id: new Id($coin->id),
             name: $this->charInitializer->create($coin->name),
             description: $this->charInitializer->create($coin->description),
-            purchasePrice: $this->moneyInitializer->create((int) $coin->purchasePrice, $coin->purchaseCurrency),
+            purchasePrice: $this->moneyInitializer->create((int) $coin->purchasePrice * 100, $coin->purchaseCurrency),
             metal: Metal::tryFrom($coin->metal),
             weight: $coin->weight,
             purity: $coin->purity,
