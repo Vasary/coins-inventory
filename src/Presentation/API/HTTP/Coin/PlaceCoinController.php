@@ -6,6 +6,8 @@ namespace Presentation\API\HTTP\Coin;
 
 use Application\UseCase\Coin\Place\PlaceCoinUseCase;
 use Application\UseCase\Coin\Place\Request\PlaceCoinRequest;
+use DateInterval;
+use DateTime;
 use Infrastructure\Framework\Symfony\HTTP\Request\CoinRequest;
 use Infrastructure\Framework\Symfony\Routing\Controller;
 use Infrastructure\Framework\Symfony\Routing\Response;
@@ -16,6 +18,8 @@ final class PlaceCoinController extends Controller
 {
     private function constraints(ConstraintsBuilder $builder): object
     {
+        $maximalYear = (int) new DateTime()->add(new DateInterval('P1Y'))->format('Y');
+
         return $builder
             ->notBlank('country')
             ->choice('country', 'unitedKingdom', 'usa', 'canada', 'australia')
@@ -38,7 +42,7 @@ final class PlaceCoinController extends Controller
             ->notBlank('weight')
             ->positive('weight')
             ->notBlank('year')
-            ->range('year', min: 1990, max: 2050)
+            ->range('year', min: 1900, max: $maximalYear)
             ->build();
     }
 

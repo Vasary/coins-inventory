@@ -6,6 +6,8 @@ namespace Presentation\API\HTTP\Coin;
 
 use Application\Service\Serializer\DTO\Coin;
 use Application\UseCase\Coin\Place\PlaceCoinUseCase;
+use DateInterval;
+use DateTime;
 use Domain\Common\Enum\Country;
 use Domain\Common\Enum\Metal;
 use Infrastructure\Framework\Symfony\HTTP\Request\CoinRequest;
@@ -119,6 +121,8 @@ final class PlaceCoinControllerTest extends TestCase
 
     public static function validationDataProvider(): array
     {
+        $maximalYear = (int) new DateTime()->add(new DateInterval('P1Y'))->format('Y');
+
         return [
             'invalid country' => [
                 [
@@ -279,10 +283,10 @@ final class PlaceCoinControllerTest extends TestCase
                     'purchasePrice' => 1500,
                     'purity' => 99.9,
                     'weight' => 1.0,
-                    'year' => 1980,
+                    'year' => 1899,
                 ],
                 [
-                    ['field' => '[year]', 'message' => 'This value should be between 1990 and 2050.'],
+                    ['field' => '[year]', 'message' => 'This value should be between 1900 and ' . $maximalYear . '.'],
                 ],
             ],
         ];

@@ -25,7 +25,7 @@ final class PlaceCoinTest extends TestCase
             purity: 0.9167,
             nominal: 50,
             country: 'USA',
-            year: 2023,
+            year: 1986,
             purchaseDate: '2023-12-01T00:15:00+02:00',
         );
 
@@ -42,7 +42,7 @@ final class PlaceCoinTest extends TestCase
         $this->assertEquals(0.9167, $coin->purity);
         $this->assertEquals(50, $coin->nominal);
         $this->assertEquals('usa', $coin->country);
-        $this->assertEquals(2023, $coin->year);
+        $this->assertEquals(1986, $coin->year);
         $this->assertEquals('2023-12-01T00:15:00+02:00', $coin->purchaseDate);
     }
 }
