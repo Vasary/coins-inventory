@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.10 (2024-12-26)
+
+### Bug Fixes
+
+* Coin pure weight calculator (77f544)
+
+
+---
+
 ## 1.0.9 (2024-12-26)
 
 ### Bug Fixes
