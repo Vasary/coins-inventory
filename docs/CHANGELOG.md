@@ -4,6 +4,15 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.0.8 (2024-12-26)
+
+### Bug Fixes
+
+* Minimal coin year changed to 1900 (0aa73a)
+
+
+---
+
 ## 1.0.7 (2024-12-25)
 
 ### Bug Fixes
