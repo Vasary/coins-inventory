@@ -35,7 +35,7 @@ final readonly class Coin
 
     public function pureMetalWeight(): float
     {
-        return $this->weight * $this->purity / 1000;
+        return $this->weight * $this->purity / 100;
     }
 
     public function metalPrice(Money $pricePerGram): Money

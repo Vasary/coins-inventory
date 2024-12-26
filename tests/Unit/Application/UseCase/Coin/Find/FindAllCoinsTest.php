@@ -34,7 +34,7 @@ final class FindAllCoinsTest extends TestCase
         $this->assertEquals('EUR', $coin->purchaseCurrency);
         $this->assertEquals('gold', $coin->metal);
         $this->assertEquals(15.55, $coin->weight);
-        $this->assertEquals(999.9, $coin->purity);
+        $this->assertEquals(99.99, $coin->purity);
         $this->assertEquals(50, $coin->nominal);
         $this->assertEquals('unitedKingdom', $coin->country);
         $this->assertEquals(2024, $coin->year);

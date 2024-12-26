@@ -24,8 +24,8 @@ final class CoinTest extends TestCase
 
         $this->assertInstanceOf(Coin::class, $coin);
 
-        $this->assertEquals(31.09689, $coin->pureMetalWeight());
-        $this->assertEquals(24, $coin->karats());
-        $this->assertEquals(2518.85, $coin->metalPrice($metalPrice)->getAmount());
+        $this->assertEquals(31.103631, $coin->pureMetalWeight());
+        $this->assertEquals(22, $coin->karats());
+        $this->assertEquals(2519.39, $coin->metalPrice($metalPrice)->getAmount());
     }
 }
