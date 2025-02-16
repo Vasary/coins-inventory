@@ -34,41 +34,38 @@ services:
     Predis\Client: ['%redis.config.connection%', '%redis.config.options%']
     Predis\ClientInterface: '@Predis\Client'
 
+    Infrastructure\GoldAPI\Guzzle\GoldAPIRepository:
+        arguments: ["@guzzle.gold-api.client"]
+
     guzzle.gold-api.client:
         class: GuzzleHttp\Client
         arguments:
             $config:
-#                base_uri: 'https://www.goldapi.io/api/'
-                base_uri: 'https://echo.free.beeceptor.com/'
+                base_uri: 'https://www.goldapi.io/api/'
                 timeout: 10
                 handler: '@guzzle.handler'
                 headers:
                     x-access-token: 'goldapi-26dsm4r29ls3-io'
                     Content-Type: 'application/json'
 
-    Infrastructure\GoldAPI\Guzzle\GoldAPIRepository:
-        arguments: ["@guzzle.gold-api.client"]
-
     guzzle.handler:
         class: GuzzleHttp\HandlerStack
         factory: ['GuzzleHttp\HandlerStack', 'create']
         calls:
             - method: push
-              arguments: ['@guzzle.cache.middleware']
+              arguments: ['@Kevinrob\GuzzleCache\CacheMiddleware']
 
-    guzzle.cache.middleware:
-        class: Kevinrob\GuzzleCache\CacheMiddleware
-        arguments: ['@guzzle.cache.strategy']
+    Kevinrob\GuzzleCache\CacheMiddleware:
+        arguments: ['@Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy']
 
-    guzzle.cache.strategy:
-        class: Kevinrob\GuzzleCache\Strategy\PrivateCacheStrategy
-        arguments: ['@guzzle.cache.storage']
-
-    guzzle.cache.storage:
-        class: Kevinrob\GuzzleCache\Storage\FlysystemStorage
-        arguments: ['@guzzle.cache.adapter']
-
-    guzzle.cache.adapter:
-        class: League\Flysystem\Local\LocalFilesystemAdapter
+    Kevinrob\GuzzleCache\Strategy\GreedyCacheStrategy:
         arguments:
-            $location: '/app/var/cache/%kernel.environment%/'
+            $cache: '@Kevinrob\GuzzleCache\Storage\FlysystemStorage'
+            $defaultTtl: 3600
+
+    Kevinrob\GuzzleCache\Storage\FlysystemStorage:
+        arguments: ['@League\Flysystem\Local\LocalFilesystemAdapter']
+
+    League\Flysystem\Local\LocalFilesystemAdapter:
+        arguments:
+            $location: '/app/var/cache/%kernel.environment%'

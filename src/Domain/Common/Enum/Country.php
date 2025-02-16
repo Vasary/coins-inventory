@@ -9,4 +9,8 @@ enum Country: string
     case USA = 'usa';
     case Australia = 'australia';
     case UnitedKingdom = 'unitedKingdom';
+
+    case Canada = 'canada';
+
+    case SouthAfrica = 'southAfrica';
 }
