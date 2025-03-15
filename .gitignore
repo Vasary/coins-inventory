@@ -8,7 +8,6 @@
 /vendor/
 .phpunit.result.cache
 /.phpcs-cache
-/phpcs.xml
 /.idea
 /behat.yml
 src/Infrastructure/Protobuf/Messages
