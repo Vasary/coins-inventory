@@ -10,7 +10,8 @@ use DateInterval;
 use DateTime;
 use Infrastructure\Framework\Symfony\HTTP\Request\CoinRequest;
 use Infrastructure\Framework\Symfony\Routing\Controller;
-use Infrastructure\Framework\Symfony\Routing\Response;
+use Infrastructure\Framework\Symfony\Routing\JsonResponse;
+use Infrastructure\Framework\Symfony\Routing\StatusCodeInterface;
 use Infrastructure\Validation\ConstraintsBuilder;
 use Infrastructure\Validation\ValidationService;
 
@@ -51,12 +52,12 @@ final class PlaceCoinController extends Controller
         CoinRequest $coinRequest,
         ValidationService $validator,
         ConstraintsBuilder $constraintsBuilder,
-    ): Response {
+    ): JsonResponse {
         $data = json_decode($coinRequest->getContent(), true);
         $violations = $validator->validate($data, $this->constraints($constraintsBuilder));
 
         if (null !== $violations) {
-            return new Response($violations, Response::BAD_REQUEST);
+            return new JsonResponse(iterator_to_array($violations), StatusCodeInterface::BAD_REQUEST);
         }
 
         $coin = $useCase(
@@ -75,6 +76,6 @@ final class PlaceCoinController extends Controller
             )
         );
 
-        return new Response([$coin], 201);
+        return new JsonResponse($coin, StatusCodeInterface::CREATED);
     }
 }

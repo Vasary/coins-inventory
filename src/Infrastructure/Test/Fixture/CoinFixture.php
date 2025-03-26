@@ -52,7 +52,7 @@ final readonly class CoinFixture
             id: new Id('02b7de8f-8e45-5c11-82bc-b38ecf671a55'),
             name: $this->charInitializerService->create('Maple Leaf'),
             description: $this->charInitializerService->create('Iconic Canadian gold coin'),
-            purchasePrice: $this->moneyInitializerService->create(190000, 'CAD'),
+            purchasePrice: $this->moneyInitializerService->create(190000, 'EUR'),
             metal: Metal::Gold,
             weight: 31.1,
             purity: 99.99,

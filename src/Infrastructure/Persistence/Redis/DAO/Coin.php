@@ -7,7 +7,7 @@ namespace Infrastructure\Persistence\Redis\DAO;
 use Generator;
 use Infrastructure\Persistence\Redis\Entity\Coin as CoinEntity;
 use Infrastructure\Persistence\Redis\Mapper\CoinMapper;
-use Predis\Client;
+use Predis\ClientInterface;
 use Symfony\Component\Serializer\SerializerInterface;
 
 readonly final class Coin
@@ -15,7 +15,7 @@ readonly final class Coin
     private const string NAMESPACE = 'coin:{id}';
 
     public function __construct(
-        private Client $client,
+        private ClientInterface $client,
         private SerializerInterface $serializer,
         private CoinMapper $mapper,
     ) {

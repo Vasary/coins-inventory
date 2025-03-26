@@ -33,6 +33,7 @@ shell:
 
 test:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) exec -it coin-service vendor/bin/phpunit -c tests/phpunit.xml
+	@docker compose -f $(DOCKER_COMPOSE_FILE) exec -it coin-service vendor/bin/behat -c tests/behat.yml
 
 code-style:
 	@docker compose -f $(DOCKER_COMPOSE_FILE) exec -it coin-service vendor/bin/phpcs

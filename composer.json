@@ -84,8 +84,14 @@
         }
     },
     "require-dev": {
+        "behat/mink": "^1.12",
+        "behat/mink-browserkit-driver": "*",
         "captainhook/captainhook": "5.24.1",
+        "coduo/php-matcher": "^6.0",
         "dg/bypass-finals": "1.8.0",
+        "friends-of-behat/mink-browserkit-driver": "^1.6",
+        "friends-of-behat/mink-extension": "^2.7",
+        "friends-of-behat/symfony-extension": "^2.6",
         "marcocesarato/php-conventional-changelog": "1.17.2",
         "phpunit/phpunit": "11.5.0",
         "slevomat/coding-standard": "8.15",

@@ -8,9 +8,10 @@ use Domain\Common\Enum\Metal;
 use Domain\Common\ValueObject\Money;
 use Domain\Market\Repository\MarketRepositoryInterface;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Psr7\Response;
 use Infrastructure\Money\Service\MoneyInitializerService;
+use OutOfBoundsException;
 
 final readonly class GoldAPIRepository implements MarketRepositoryInterface
 {
@@ -41,7 +42,7 @@ final readonly class GoldAPIRepository implements MarketRepositoryInterface
         return $this->client->getAsync($url)
             ->then(
                 fn(Response $response) => $this->parseResponse($response, $karat, $currency),
-                fn(RequestException $e) => $this->handleRequestException($e, $currency)
+                fn(GuzzleException | OutOfBoundsException $e) => $this->handleRequestException($e, $currency)
             )
             ->wait();
     }
@@ -56,7 +57,7 @@ final readonly class GoldAPIRepository implements MarketRepositoryInterface
         return $this->moneyInitializer->create($price, $currency);
     }
 
-    private function handleRequestException(RequestException $exception, string $currency): Money
+    private function handleRequestException(GuzzleException | OutOfBoundsException $exception, string $currency): Money
     {
         return $this->moneyInitializer->create(0, $currency);
     }

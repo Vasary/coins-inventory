@@ -6,12 +6,15 @@ namespace Presentation\Maintenance\HTTP\Health;
 
 use Application\UseCase\Health\ApplicationHealthUseCase;
 use Infrastructure\Framework\Symfony\Routing\Controller;
-use Infrastructure\Framework\Symfony\Routing\Response;
+use Infrastructure\Framework\Symfony\Routing\JsonResponse;
+use Infrastructure\Framework\Symfony\Routing\StatusCodeInterface;
 
 final class HealthCheckController extends Controller
 {
-    public function __invoke(ApplicationHealthUseCase $useCase): Response
+    public function __invoke(ApplicationHealthUseCase $useCase): JsonResponse
     {
-        return new Response([], $useCase() ? Response::STATUS_OK : Response::INTERNAL_ERROR);
+        return new JsonResponse([], $useCase()
+            ? StatusCodeInterface::STATUS_OK
+            : StatusCodeInterface::INTERNAL_ERROR);
     }
 }

@@ -11,7 +11,7 @@ use DateTime;
 use Domain\Common\Enum\Country;
 use Domain\Common\Enum\Metal;
 use Infrastructure\Framework\Symfony\HTTP\Request\CoinRequest;
-use Infrastructure\Framework\Symfony\Routing\Response;
+use Infrastructure\Framework\Symfony\Routing\JsonResponse;
 use Infrastructure\Test\TestCase;
 use Infrastructure\Validation\ConstraintsBuilder;
 use Infrastructure\Validation\ValidationService;
@@ -44,8 +44,8 @@ final class PlaceCoinControllerTest extends TestCase
             constraintsBuilder: new ConstraintsBuilder()
         );
 
-        $this->assertInstanceOf(Response::class, $response);
-        $content = $this->catchStream($response);
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $content = $response->getContent();
 
         $this->assertNotNull($expectedViolations);
         $this->assertEquals(json_encode($expectedViolations), $content);
@@ -109,14 +109,14 @@ final class PlaceCoinControllerTest extends TestCase
             constraintsBuilder: new ConstraintsBuilder()
         );
 
-        $this->assertInstanceOf(Response::class, $response);
-        $content = $this->catchStream($response);
+        $this->assertInstanceOf(JsonResponse::class, $response);
+        $content = $response->getContent();
 
         $this->assertEquals(201, $response->getStatusCode());
         $this->assertEquals('application/json', $response->headers->get('Content-Type'));
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(JsonResponse::class, $response);
         $this->assertJson($content);
-        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/response/find_all_coins.json', $content);
+        $this->assertJsonStringEqualsJsonFile(__DIR__ . '/response/place_a_coin.json', $content);
     }
 
     public static function validationDataProvider(): array
@@ -290,14 +290,5 @@ final class PlaceCoinControllerTest extends TestCase
                 ],
             ],
         ];
-    }
-
-    private function catchStream(Response $response): string
-    {
-        ob_start();
-
-        $response->sendContent();
-
-        return ob_get_clean();
     }
 }

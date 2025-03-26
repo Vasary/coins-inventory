@@ -9,7 +9,7 @@ use Application\UseCase\Coin\Find\FindAllCoinsUseCase;
 use Domain\Common\Enum\Country;
 use Domain\Common\Enum\Metal;
 use Generator;
-use Infrastructure\Framework\Symfony\Routing\Response;
+use Infrastructure\Framework\Symfony\Routing\JsonStreamedResponse;
 use Infrastructure\Test\TestCase;
 
 final class FindCoinsControllerTest extends TestCase
@@ -51,7 +51,7 @@ final class FindCoinsControllerTest extends TestCase
 
         $this->assertEquals(200, $response->getStatusCode());
         $this->assertEquals('application/json', $response->headers->get('Content-Type'));
-        $this->assertInstanceOf(Response::class, $response);
+        $this->assertInstanceOf(JsonStreamedResponse::class, $response);
         $this->assertJson($stream);
         $this->assertJsonStringEqualsJsonFile(__DIR__ . '/response/find_all_coins.json', $stream);
     }
@@ -63,7 +63,7 @@ final class FindCoinsControllerTest extends TestCase
         $this->loadCoinsFixture();
     }
 
-    private function catchStream(Response $response): string
+    private function catchStream(JsonStreamedResponse $response): string
     {
         ob_start();
 
