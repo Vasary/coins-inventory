@@ -4,6 +4,24 @@
 All notable changes to this project will be documented in this file.
 <!--- END HEADER -->
 
+## 1.1.1 (2025-03-26)
+
+### Tests
+
+* Behat tests (e483d2)
+
+### Documentation
+
+* Update readme (feab1a)
+
+### Chores
+
+* Add cs-rules (861193)
+* Update dependencies (497d0f)
+
+
+---
+
 ## 1.1.0 (2025-02-16)
 
 ### Features
